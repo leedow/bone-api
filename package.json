@@ -1,8 +1,8 @@
 {
   "name": "bone-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "boneapi.min.js",
+  "main": "boneapi.js",
   "scripts": {
     "build": "uglifyjs node_modules/reqwest/reqwest.js boneapi.js -o boneapi.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"

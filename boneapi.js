@@ -1,4 +1,9 @@
 (function() {
+  if(typeof require != 'undefined'){
+    var reqwest = require('reqwest')
+  }
+
+
   var boneapi = {
     base: '',
     error: function() {},
