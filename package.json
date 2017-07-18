@@ -1,0 +1,33 @@
+{
+  "name": "bone-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "boneapi.min.js",
+  "scripts": {
+    "build": "uglifyjs node_modules/reqwest/reqwest.js boneapi.js -o boneapi.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leedow/bone-api.git"
+  },
+  "keywords": [
+    "ajax",
+    "api"
+  ],
+  "author": "leedow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leedow/bone-api/issues"
+  },
+  "homepage": "https://github.com/leedow/bone-api#readme",
+  "devDependencies": {
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0"
+  },
+  "dependencies": {
+    "reqwest": "^2.0.5"
+  }
+}

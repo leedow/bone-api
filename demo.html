@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bone-api</title>
+    <script type="text/javascript" src="./node_modules/reqwest/reqwest.min.js"></script>
+    <script type="text/javascript" src="./boneapi.js"></script>
+    <style media="screen">
+      body {
+        text-align: center;
+      }
+
+      #logo {
+        margin: 40px 0 10px 0;
+      }
+
+      #intro {
+        color: #999;
+        font-size: 14px;
+        font-weight: normal;
+        margin-top: 0px;
+      }
+
+      .box {
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="">
+      <h1 id="logo">BoneAPI</h1>
+      <h2 id="intro">A tool of localstorage</h2>
+    </div>
+    <div class="box">
+      <select class="" name="" id="method">
+        <option value="get">get</option>
+        <option value="post">post</option>
+        <option value="delete">delete</option>
+        <option value="put">put</option>
+      </select>
+      <select class="" name="" id="prevent">
+        <option value="0">prevent error event</option>
+        <option value="1">do not prevent error event</option>
+
+      </select>
+      <button type="button" onclick="ajax('test/res-success.json')">SUCCESS</button>
+      <button type="button" onclick="ajax('test/res-error.json')">WRONG</button>
+      <div id="res"></div>
+    </div>
+    <script type="text/javascript">
+      boneapi.config({
+        base: '',
+        filterData: function(data, config){
+          data.config = 'param from filter'
+          return data
+        },
+        filterConfig: function(config){
+          if(config.method == 'delete')
+            config.method = 'get'
+          return config
+        },
+        route: function(res){
+          if(res.code == 0){
+            log('Global route callback: invoke success function')
+            // call success function when return true
+            return true
+          } else {
+            log('Global route callback: invoke error function')
+            // call error function when return false
+            return false
+          }
+        },
+        error: function(){
+          log('Glocal error')
+        }
+      })
+
+      var n = 0
+
+      function ajax(url){
+        n++
+        var method = document.getElementById('method').value
+        boneapi[method](url, {
+          test: 1
+        }).success(function(res){
+          log('[' + n + '] ' + method+' - Private success callback:' +  JSON.stringify(res))
+        }).error(function(res){
+          log('[' + n + '] ' + method+' - Private error callback:' +  JSON.stringify(res))
+          return document.getElementById('prevent').value==0?false:true
+        })
+      }
+
+      function log(msg){
+        document.getElementById('res').innerHTML =   msg + '<br>' + document.getElementById('res').innerHTML
+      }
+    </script>
+  </body>
+</html>
