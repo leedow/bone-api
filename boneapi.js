@@ -37,7 +37,7 @@
     this.successCallback = function() {}
     this.errorCallback = function() {return true}
     this._errorCallback = function() {}
-    const that = this
+    var that = this
 
     this.success = function(callback) {
       this.successCallback = callback
@@ -76,8 +76,16 @@
       }
     }
 
+    // plus private config
     for(var key in config){
       params[key] = config[key]
+    }
+
+    // parse data when send json
+    if(typeof params.contentType != undefined){
+      if(params.contentType.indexOf('application/json')>=0){
+        params.data = JSON.stringify(params.data)
+      }
     }
 
     reqwest(boneapi.filterConfig(params))

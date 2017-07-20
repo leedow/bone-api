@@ -109,3 +109,15 @@ boneapi.delete('/testapi', {
 
 })
 ```
+
+### Send JSON with payload
+Data will be parsed
+```javascript
+boneapi.post('/testapi', {
+  params: 'value'
+}, {
+  contentType: 'application/json; charset=utf-8'
+}).success(function(res, xhr){
+
+})
+```

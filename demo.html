@@ -96,7 +96,8 @@
         }, {
           headers: {
             test: 'test'
-          }
+          },
+          //contentType: 'application/json; charset=utf-8'
         }).success(function(res, x){
           log('[' + n + '] ' + method+' - Private success callback:' +  JSON.stringify(res))
         }).error(function(res){
