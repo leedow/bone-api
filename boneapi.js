@@ -1,8 +1,7 @@
 (function() {
   if(typeof require != 'undefined'){
-    var reqwest = require('reqwest')
+    reqwest = require('./reqwest')
   }
-
 
   var boneapi = {
     base: '',
@@ -35,9 +34,9 @@
     this.method = method || 'get'
     this._config = {}
 
-    this.successCallback = function() {} //eslint-disable-line
-    this.errorCallback = function() {return true} //eslint-disable-line
-    this._errorCallback = function() {} //eslint-disable-line
+    this.successCallback = function() {}
+    this.errorCallback = function() {return true}
+    this._errorCallback = function() {}
     const that = this
 
     this.success = function(callback) {
@@ -55,28 +54,21 @@
       return this
     }
 
-    this.config = function(config){
-      this._config = config
-    }
-
-
-
-
     var params = {
       url: that.url,
       method: that.method,
       data: boneapi.filterData(data),
-      success: function(res) { //eslint-disable-line
-        if (boneapi.route(res)) {
-          that.successCallback(res)
+      success: function(res, x) {
+        if (boneapi.route(res, x)) {
+          that.successCallback(res, x)
         } else {
-          var r = that.errorCallback(res)
+          var r = that.errorCallback(res, x)
           if (r) {
-            that._errorCallback(res)
+            that._errorCallback(res, x)
           }
         }
       },
-      error: function(res) { //eslint-disable-line
+      error: function(res) {
         var r = that.errorCallback(res)
         if (r) {
           that._errorCallback(res)
@@ -84,25 +76,12 @@
       }
     }
 
-
-
-    /*
-    if (type == 'json') {
-      params.contentType = 'application/json; charset=utf-8'
-      params.type = 'post'
-      params.data = JSON.stringify(data)
+    for(var key in config){
+      params[key] = config[key]
     }
-    if (bonestore.get('token')) {
-      params.beforeSend = function(xhr) {
-        var token = bonestore.get('token')
-        xhr.setRequestHeader("Auth-Token", token);
-      }
-    }*/
 
     reqwest(boneapi.filterConfig(params))
   }
-
-
 
   if (typeof module != 'undefined') {
     module.exports = boneapi

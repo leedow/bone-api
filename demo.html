@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Bone-api</title>
-    <script type="text/javascript" src="./node_modules/reqwest/reqwest.min.js"></script>
+    <script type="text/javascript" src="./reqwest.js"></script>
     <script type="text/javascript" src="./boneapi.js"></script>
     <style media="screen">
       body {
@@ -57,9 +57,20 @@
         filterConfig: function(config){
           if(config.method == 'delete')
             config.method = 'get'
+
+          if(config.headers){
+            config.headers.auth = 'auth'
+          } else {
+            config.headers ={
+              auth: 'auth '
+            }
+          }
+
           return config
         },
         route: function(res){
+
+          //console.log(status)
           if(res.code == 0){
             log('Global route callback: invoke success function')
             // call success function when return true
@@ -82,7 +93,11 @@
         var method = document.getElementById('method').value
         boneapi[method](url, {
           test: 1
-        }).success(function(res){
+        }, {
+          headers: {
+            test: 'test'
+          }
+        }).success(function(res, x){
           log('[' + n + '] ' + method+' - Private success callback:' +  JSON.stringify(res))
         }).error(function(res){
           log('[' + n + '] ' + method+' - Private error callback:' +  JSON.stringify(res))
