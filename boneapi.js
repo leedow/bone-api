@@ -29,7 +29,8 @@
   }
 
   function rqt(url, data, method, config) {
-    this.url = boneapi.base + url
+
+    this.url = ''
     this.data = data || {}
     this.method = method || 'get'
     this._config = {}
@@ -38,6 +39,13 @@
     this.errorCallback = function() {return true}
     this._errorCallback = function() {}
     var that = this
+
+    // check url format
+    if(/^(http:\/\/)|(https:\/\/)/.test(url)){
+      this.url = url
+    } else {
+      this.url = boneapi.base + url
+    }
 
     this.success = function(callback) {
       this.successCallback = callback
@@ -83,8 +91,12 @@
 
     // parse data when send json
     if(typeof params.contentType != undefined){
-      if(params.contentType.indexOf('application/json')>=0){
-        params.data = JSON.stringify(params.data)
+      try{
+        if(params.contentType.indexOf('application/json')>=0){
+          params.data = JSON.stringify(params.data)
+        }
+      } catch(e){
+
       }
     }
 

@@ -64,7 +64,8 @@ boneapi.get('/testapi', {
 ### More
 ```javascript
 // support get|post|put|delete
-boneapi.post('/testapi', {
+// boneapi.base will be ignored here
+boneapi.post('http://www.google.com', {
   params: 'value'
 }, {
   // private config here
