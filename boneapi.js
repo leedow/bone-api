@@ -25,6 +25,9 @@
     },
     put: function(url, data, config) {
       return new rqt(url, data, 'put', config)._error(this.error)
+    },
+    patch: function(url, data, config) {
+      return new rqt(url, data, 'patch', config)._error(this.error)
     }
   }
 
@@ -37,6 +40,7 @@
 
     this.successCallback = function() {}
     this.errorCallback = function() {return true}
+    this.alwaysCallback = function() {}
     this._errorCallback = function() {}
     var that = this
 
@@ -54,6 +58,11 @@
 
     this.error = function(callback) {
       this.errorCallback = callback
+      return this
+    }
+
+    this.always = function(callback){
+      this.alwaysCallback = callback
       return this
     }
 
@@ -75,12 +84,14 @@
             that._errorCallback(res, x)
           }
         }
+        that.alwaysCallback(res, x)
       },
       error: function(res) {
         var r = that.errorCallback(res)
         if (r) {
           that._errorCallback(res)
         }
+        that.alwaysCallback(res)
       }
     }
 
@@ -96,7 +107,7 @@
           params.data = JSON.stringify(params.data)
         }
       } catch(e){
-
+        console.log(e)
       }
     }
 

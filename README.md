@@ -78,6 +78,8 @@ boneapi.post('http://www.google.com', {
 }).error(function(res){
   // you don't want to invoke global error callback just return false
   return false
+}).always(function(){
+  // always be invoked
 })
 ```
 

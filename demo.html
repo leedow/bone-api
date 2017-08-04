@@ -105,6 +105,8 @@
         }).error(function(res){
           log('[' + n + '] ' + method+' - Private error callback:' +  JSON.stringify(res))
           return document.getElementById('prevent').value==0?false:true
+        }).always(function(){
+          console.log('always')
         })
       }
 
