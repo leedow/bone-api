@@ -6,7 +6,7 @@ It requset through the dependency [Reqwest](https://github.com/ded/reqwest) （w
 
 ## Install
 
-```
+```shell
 npm install bone-api --save
 ```
 or

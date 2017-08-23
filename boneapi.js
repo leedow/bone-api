@@ -101,7 +101,7 @@
     }
 
     // parse data when send json
-    if(typeof params.contentType != undefined){
+    if(typeof params.contentType != 'undefined'){
       try{
         if(params.contentType.indexOf('application/json')>=0){
           params.data = JSON.stringify(params.data)
