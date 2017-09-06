@@ -45,11 +45,13 @@
     var that = this
 
     // check url format
+
     if(/^(http:\/\/)|(https:\/\/)/.test(url)){
       this.url = url
     } else {
       this.url = boneapi.base + url
     }
+    this.url = this.url.replace(/\/+/g, '/').replace(/\:/, '://')
 
     this.success = function(callback) {
       this.successCallback = callback
