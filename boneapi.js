@@ -28,7 +28,8 @@
     },
     patch: function(url, data, config) {
       return new rqt(url, data, 'patch', config)._error(this.error)
-    }
+    },
+    handler: reqwest
   }
 
   function rqt(url, data, method, config) {
@@ -113,7 +114,7 @@
       }
     }
 
-    reqwest(boneapi.filterConfig(params))
+    boneapi.handler(boneapi.filterConfig(params))
   }
 
   if (typeof module != 'undefined') {
